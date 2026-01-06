@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item: una parada (orden + etiqueta + tipo) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemParadaRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <!-- Orden -->
+    <TextView
+        android:id="@+id/tvOrden"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:text="@string/_1"
+        android:textStyle="bold" />
+
+    <!-- Contenido -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Etiqueta -->
+        <TextView
+            android:id="@+id/tvEtiqueta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/etiqueta"
+            android:textStyle="bold" />
+
+        <!-- Tipo (ESPECTACULO/RESTAURANTE/PUNTO) -->
+        <TextView
+            android:id="@+id/tvTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo" />
+    </LinearLayout>
+</LinearLayout>

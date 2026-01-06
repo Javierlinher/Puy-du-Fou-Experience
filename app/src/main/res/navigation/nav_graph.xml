@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Grafo de navegación principal (MainActivity)
+
+  ✅ Cambios para ADMIN:
+  - Se añade AdminUsuariosFragment (pantalla de administración).
+  - Desde AjustesFragment existe una acción: ajustes -> adminUsuarios.
+  - La visibilidad del botón "Administración" la controla AjustesFragment con SessionManager.isAdmin().
+-->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/espectaculosFragment">
+
+    <!-- ===================== ESPECTÁCULOS ===================== -->
+    <fragment
+        android:id="@+id/espectaculosFragment"
+        android:name="com.example.puydufouexperience.ui.espectaculos.EspectaculosFragment"
+        android:label="Espectáculos">
+
+        <action
+            android:id="@+id/action_espectaculosFragment_to_espectaculoDetalleFragment"
+            app:destination="@id/espectaculoDetalleFragment" />
+
+        <action
+            android:id="@+id/action_espectaculosFragment_to_horariosFragment"
+            app:destination="@id/horariosFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/horariosFragment"
+        android:name="com.example.puydufouexperience.ui.espectaculos.HorariosFragment"
+        android:label="Horarios">
+
+        <action
+            android:id="@+id/action_horariosFragment_to_espectaculoDetalleFragment"
+            app:destination="@id/espectaculoDetalleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/espectaculoDetalleFragment"
+        android:name="com.example.puydufouexperience.ui.espectaculos.EspectaculoDetalleFragment"
+        android:label="Detalle espectáculo">
+
+        <!-- ID del espectáculo a mostrar -->
+        <argument
+            android:name="espectaculoId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
+    <!-- ===================== RESTAURANTES ===================== -->
+    <fragment
+        android:id="@+id/restaurantesFragment"
+        android:name="com.example.puydufouexperience.ui.restaurantes.RestaurantesFragment"
+        android:label="Restaurantes">
+
+        <action
+            android:id="@+id/action_restaurantesFragment_to_restauranteDetalleFragment"
+            app:destination="@id/restauranteDetalleFragment" />
+
+        <action
+            android:id="@+id/action_restaurantesFragment_to_misReservasFragment"
+            app:destination="@id/misReservasFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/restauranteDetalleFragment"
+        android:name="com.example.puydufouexperience.ui.restaurantes.RestauranteDetalleFragment"
+        android:label="Detalle restaurante">
+
+        <!-- ID del restaurante a mostrar -->
+        <argument
+            android:name="restauranteId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/misReservasFragment"
+        android:name="com.example.puydufouexperience.ui.restaurantes.MisReservasFragment"
+        android:label="Mis reservas" />
+
+    <!-- ===================== MAPA ===================== -->
+    <fragment
+        android:id="@+id/mapaFragment"
+        android:name="com.example.puydufouexperience.ui.mapa.MapaFragment"
+        android:label="Mapa">
+
+        <!--
+          ✅ Argumento: si venimos desde RutasFragment con "Crear ruta",
+          el mapa entra directamente en modo creación.
+        -->
+        <argument
+            android:name="arg_iniciar_creacion_ruta"
+            android:defaultValue="false"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/action_mapaFragment_to_espectaculoDetalleFragment"
+            app:destination="@id/espectaculoDetalleFragment" />
+
+        <action
+            android:id="@+id/action_mapaFragment_to_restauranteDetalleFragment"
+            app:destination="@id/restauranteDetalleFragment" />
+
+        <!-- ✅ Acción: botón "Rutas" dentro del mapa -->
+        <action
+            android:id="@+id/action_mapaFragment_to_rutasFragment"
+            app:destination="@id/rutasFragment" />
+    </fragment>
+
+    <!-- ===================== FAVORITOS ===================== -->
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="com.example.puydufouexperience.ui.favoritos.FavoritosFragment"
+        android:label="Favoritos">
+
+        <action
+            android:id="@+id/action_favoritosFragment_to_espectaculoDetalleFragment"
+            app:destination="@id/espectaculoDetalleFragment" />
+
+        <action
+            android:id="@+id/action_favoritosFragment_to_restauranteDetalleFragment"
+            app:destination="@id/restauranteDetalleFragment" />
+
+        <action
+            android:id="@+id/action_favoritosFragment_to_rutaDetalleFragment"
+            app:destination="@id/rutaDetalleFragment" />
+    </fragment>
+
+    <!-- ===================== AJUSTES ===================== -->
+    <fragment
+        android:id="@+id/ajustesFragment"
+        android:name="com.example.puydufouexperience.ui.ajustes.AjustesFragment"
+        android:label="Ajustes">
+
+        <!--
+          ✅ ADMIN: navegación al panel de administración.
+          Importante: el botón que lanza esta acción solo se muestra si SessionManager.isAdmin()==true.
+        -->
+        <action
+            android:id="@+id/action_ajustesFragment_to_adminUsuariosFragment"
+            app:destination="@id/adminUsuariosFragment" />
+    </fragment>
+
+    <!-- ===================== ADMIN (NO va en BottomNav) ===================== -->
+    <fragment
+        android:id="@+id/adminUsuariosFragment"
+        android:name="com.example.puydufouexperience.ui.admin.AdminUsuariosFragment"
+        android:label="Administración usuarios" />
+
+    <!-- ===================== RUTAS (NO va en BottomNav) ===================== -->
+    <fragment
+        android:id="@+id/rutasFragment"
+        android:name="com.example.puydufouexperience.ui.rutas.RutasFragment"
+        android:label="Rutas">
+
+        <!-- "Crear ruta" -> vuelve al mapa y le pasa arg_iniciar_creacion_ruta=true -->
+        <action
+            android:id="@+id/action_rutasFragment_to_mapaFragment"
+            app:destination="@id/mapaFragment" />
+
+        <!-- Click en una ruta -> abre detalle -->
+        <action
+            android:id="@+id/action_rutasFragment_to_rutaDetalleFragment"
+            app:destination="@id/rutaDetalleFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/rutaDetalleFragment"
+        android:name="com.example.puydufouexperience.ui.rutas.RutaDetalleFragment"
+        android:label="Detalle ruta">
+
+        <argument
+            android:name="rutaId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+
+        <!-- ✅ Ver en mapa -->
+        <action
+            android:id="@+id/action_rutaDetalleFragment_to_mapaFragment"
+            app:destination="@id/mapaFragment" />
+    </fragment>
+
+</navigation>

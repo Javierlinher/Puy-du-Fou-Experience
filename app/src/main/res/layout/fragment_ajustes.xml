@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pantalla de ajustes: idioma, tema, notificaciones, (admin), cerrar sesión -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvIdioma"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_language"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Spinner
+        android:id="@+id/spIdioma"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvIdioma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvTema"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_theme"
+        android:textStyle="bold"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/spIdioma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Spinner
+        android:id="@+id/spTema"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTema"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvNotificaciones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_notifications"
+        android:textStyle="bold"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/spTema"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Switch
+        android:id="@+id/swNotificaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_notifications_enabled"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvNotificaciones"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <!-- ✅ SOLO ADMIN: botón para ir al panel de usuarios.
+         Lo mostramos/ocultamos desde AjustesFragment con SessionManager.isAdmin(). -->
+    <Button
+        android:id="@+id/btnAdministracion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_admin_users"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/swNotificaciones"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_logout"
+        android:layout_marginTop="18dp"
+        app:layout_constraintTop_toBottomOf="@id/btnAdministracion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

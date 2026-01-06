@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mapa con botones flotantes -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootMapa"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Contenedor del mapa -->
+    <FrameLayout
+        android:id="@+id/mapContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Botón flotante: Seguir ruta -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSeguirRuta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_margin="16dp"
+        android:text="@string/seguir"
+        android:elevation="8dp" />
+
+    <!-- Botón flotante: Rutas -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRutas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp"
+        android:text="@string/rutas"
+        android:elevation="8dp" />
+
+    <!-- Barra inferior SOLO para creación de rutas -->
+    <LinearLayout
+        android:id="@+id/routeActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@android:color/transparent"
+        android:visibility="gone">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGuardarRuta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/guardar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelarRuta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/cancelar" />
+    </LinearLayout>
+
+</FrameLayout>

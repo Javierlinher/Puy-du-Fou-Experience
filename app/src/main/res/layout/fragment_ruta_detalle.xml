@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pantalla: detalle de ruta (nombre + paradas + acciones) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootRutaDetalle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Nombre de la ruta -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ruta"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Acciones: ver en mapa / favorito / borrar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnVerEnMapa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ver_en_mapa" />
+
+        <Button
+            android:id="@+id/btnFavorito"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/favorito" />
+
+        <Button
+            android:id="@+id/btnBorrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:text="@string/borrar" />
+    </LinearLayout>
+
+    <!-- Mensaje si no hay paradas -->
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/esta_ruta_no_tiene_paradas"
+        android:visibility="gone" />
+
+    <!-- Lista de paradas -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvParadas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1" />
+
+</LinearLayout>

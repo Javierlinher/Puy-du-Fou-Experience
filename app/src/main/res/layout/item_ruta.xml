@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Item: una ruta en la lista -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemRutaRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <!-- Nombre -->
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre_ruta"
+        android:textStyle="bold" />
+
+    <!-- Fecha creación -->
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fecha" />
+</LinearLayout>

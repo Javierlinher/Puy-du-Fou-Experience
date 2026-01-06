@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BottomSheet para mostrar información rápida de un POI en el mapa -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/poiSheetRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Nombre -->
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nombre"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Tipo (Espectáculo/Restaurante) -->
+    <TextView
+        android:id="@+id/tvTipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/tipo4"
+        android:textSize="14sp" />
+
+    <!-- Info extra -->
+    <TextView
+        android:id="@+id/tvExtra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/extra"
+        android:textSize="14sp" />
+
+    <!-- Botón: Ir hasta aquí (Routes API, dentro de la app) -->
+    <Button
+        android:id="@+id/btnIrHastaAqui"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/ir_hasta_aqu" />
+
+    <!-- Botón: Ver detalle -->
+    <Button
+        android:id="@+id/btnVerDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/ver_detalle" />
+
+</LinearLayout>

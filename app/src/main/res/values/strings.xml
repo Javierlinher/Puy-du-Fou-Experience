@@ -1,0 +1,148 @@
+<resources>
+    <!-- Nombre visible de la app -->
+    <string name="app_name">Puy du Fou Experience</string>
+
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="back">Atrás</string>
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_notifications_enabled">Activadas</string>
+    <string name="settings_logout">Cerrar sesión</string>
+    <string name="settings_admin_users">Administración de usuarios</string>
+    <string name="admin_users_empty">No hay usuarios</string>
+    <string name="admin_users_delete">Borrar</string>
+    <string name="restaurantes">Restaurantes</string>
+    <string name="mapa">Mapa</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="ajustes">Ajustes</string>
+    <string name="espectaculos">Espectáculos</string>
+    <string name="nombre_ruta">Nombre ruta</string>
+    <string name="fecha">Fecha</string>
+    <string name="nombre_restaurante">Nombre restaurante</string>
+    <string name="tipo2">Tipo · €€</string>
+    <string name="restaurante_id">Restaurante #ID</string>
+    <string name="fecha_01_01_2026_14_00">Fecha: 01/01/2026 14:00</string>
+    <string name="personas_2">Personas: 2</string>
+    <string name="etiqueta">Etiqueta</string>
+    <string name="tipo">TIPO</string>
+    <string name="_1">1</string>
+    <string name="_11_00">11:00</string>
+    <string name="nombre_espectaculo">Nombre espectáculo</string>
+    <string name="_45_min_accesible_s">45 min · Accesible: Sí</string>
+    <string name="titulo">Título</string>
+    <string name="nombre_espect_culo">Nombre espectáculo</string>
+    <string name="_45_min_11_00_13_30_17_00">45 min · 11:00 | 13:30 | 17:00</string>
+    <string name="accesible">♿ Accesible</string>
+    <string name="usuario">usuario</string>
+    <string name="crear_ruta">Crear ruta</string>
+    <string name="no_tienes_rutas_guardadas">No tienes rutas guardadas.</string>
+    <string name="ruta">Ruta</string>
+    <string name="ver_en_mapa">Ver en mapa</string>
+    <string name="favorito">Favorito</string>
+    <string name="borrar">Borrar</string>
+    <string name="esta_ruta_no_tiene_paradas">Esta ruta no tiene paradas.</string>
+    <string name="mis_reservas">Mis reservas</string>
+    <string name="nombre_del_restaurante">Nombre del restaurante</string>
+    <string name="tipo3">Tipo: ...</string>
+    <string name="precio2">Precio: €€</string>
+    <string name="a_adir_a_favoritos">☆ Añadir a favoritos</string>
+    <string name="ir_hasta_all">Ir hasta allí</string>
+    <string name="reservar">Reservar</string>
+    <string name="no_tienes_reservas_todav_a">No tienes reservas todavía.</string>
+    <string name="seguir">Seguir</string>
+    <string name="rutas">Rutas</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="horarios_de_hoy">Horarios de hoy</string>
+    <string name="espect_culos">Espectáculos</string>
+    <string name="no_tienes_favoritos_de_espect_culos">No tienes favoritos de espectáculos.</string>
+    <string name="restaur_ntes">Restaurantes</string>
+    <string name="no_tienes_favoritos_de_restaurantes">No tienes favoritos de restaurantes.</string>
+    <string name="rutass">Rutas</string>
+    <string name="no_tienes_favoritos_de_rutas">No tienes favoritos de rutas.</string>
+    <string name="horarios">Horarios</string>
+    <string name="nombre_del_espect_culo">Nombre del espectáculo</string>
+    <string name="duraci_n_45_min">Duración: 45 min</string>
+    <string name="horarios_11_00_13_30_17_00">Horarios: 11:00 | 13:30 | 17:00</string>
+    <string name="accesible_s">Accesible: Sí</string>
+    <string name="a_adir_a_favoritos2">☆ Añadir a favoritos</string>
+    <string name="ir_hasta_all2">Ir hasta allí</string>
+    <string name="notificar_al_inicio">Notificar al inicio</string>
+    <string name="notificar_15_min_antes">Notificar 15 min antes</string>
+    <string name="fecha_y_hora">Fecha y hora</string>
+    <string name="sin_seleccionar">(sin seleccionar)</string>
+    <string name="elegir_fecha">Elegir fecha</string>
+    <string name="elegir_hora">Elegir hora</string>
+    <string name="n_mero_de_personas">Número de personas</string>
+    <string name="ej_2">Ej: 2</string>
+    <string name="nombre">Nombre</string>
+    <string name="tipo4">Tipo</string>
+    <string name="extra">Extra</string>
+    <string name="ir_hasta_aqu">Ir hasta aquí</string>
+    <string name="ver_detalle">Ver detalle</string>
+    <string name="usuario2">Usuario</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="acceder">Acceder</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="toast_location_unavailable">Ubicación no disponible</string>
+    <string name="toast_invalid_data">Datos inválidos</string>
+    <string name="toast_invalid_session">Sesión no válida</string>
+    <string name="toast_invalid_restaurant_id">ID de restaurante inválido</string>
+    <string name="toast_cannot_delete_admin">No se puede borrar el administrador</string>
+    <string name="toast_user_deleted">Usuario eliminado</string>
+    <string name="toast_user_delete_error">No se pudo eliminar el usuario</string>
+    <string name="toast_session_closed">Sesión cerrada</string>
+    <string name="toast_creation_cancelled">Creación cancelada</string>
+    <string name="toast_no_schedules">No hay horarios para mostrar</string>
+    <string name="toast_no_session">No hay sesión</string>
+    <string name="toast_account_created">Cuenta creada</string>
+    <string name="toast_restaurant_not_found">No se encontró el restaurante</string>
+    <string name="toast_add_at_least_one_stop">Añade al menos 1 parada</string>
+    <string name="toast_show_not_found">Espectáculo no encontrado</string>
+    <string name="toast_favorite_update_error">Error actualizando favorito</string>
+    <string name="toast_cannot_modify_reservation">No puedes modificar esta reserva</string>
+    <string name="toast_invalid_people_number">Número de personas inválido</string>
+    <string name="toast_select_date_time">Selecciona fecha y hora</string>
+    <string name="toast_date_time_cannot_be_past">La fecha y la hora no pueden ser anteriores</string>
+    <string name="toast_route_deleted">Ruta eliminada</string>
+    <string name="toast_route_delete_error">Error eliminando la ruta</string>
+    <string name="toast_no_active_session">No hay sesión activa</string>
+    <string name="toast_route_saved">Ruta guardada</string>
+    <string name="toast_route_save_error">Error guardando la ruta</string>
+    <string name="toast_exit_creation_mode_for_quick_route">
+    Sal del modo creación para usar ruta rápida
+    </string>
+    <string name="toast_location_required_for_route">
+    Necesito ubicación para calcular la ruta
+    </string>
+    <string name="toast_location_required_to_view_route">
+    Necesito ubicación para ver la ruta
+    </string>
+    <string name="toast_route_has_no_stops">Esta ruta no tiene paradas</string>
+    <string name="toast_location_fetch_error">No se pudo obtener tu ubicación</string>
+    <string name="toast_route_display_error">Error mostrando la ruta</string>
+    <string name="toast_route_calculation_error">Error calculando la ruta</string>
+    <string name="toast_cannot_follow_route_in_creation_mode">
+    No se puede seguir la ruta en modo creación
+    </string>
+    <string name="toast_calculate_route_first">Primero calcula una ruta</string>
+    <string name="toast_location_required_for_tracking">Necesito ubicación para seguimiento</string>
+    <string name="toast_tracking_enabled">Seguimiento activado</string>
+    <string name="toast_tracking_disabled">Seguimiento desactivado</string>
+
+
+    <string-array name="settings_language_labels">
+        <item>Español</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="settings_theme_labels">
+        <item>Según sistema</item>
+        <item>Claro</item>
+        <item>Oscuro</item>
+    </string-array>
+
+</resources>

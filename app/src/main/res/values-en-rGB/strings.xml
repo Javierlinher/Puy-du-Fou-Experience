@@ -1,0 +1,151 @@
+<resources>
+    <!-- App visible name -->
+    <string name="app_name">Puy du Fou Experience</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="back">Back</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_enabled">Enabled</string>
+    <string name="settings_logout">Log out</string>
+    <string name="settings_admin_users">User administration</string>
+    <string name="admin_users_empty">No users</string>
+    <string name="admin_users_delete">Delete</string>
+    <string name="restaurantes">Restaurants</string>
+    <string name="mapa">Map</string>
+    <string name="favoritos">Favourites</string>
+    <string name="ajustes">Settings</string>
+    <string name="espectaculos">Shows</string>
+    <string name="nombre_ruta">Route name</string>
+    <string name="fecha">Date</string>
+    <string name="nombre_restaurante">Restaurant name</string>
+    <string name="tipo2">Type · €€</string>
+    <string name="restaurante_id">Restaurant #ID</string>
+    <string name="fecha_01_01_2026_14_00">Date: 01/01/2026 14:00</string>
+    <string name="personas_2">People: 2</string>
+    <string name="etiqueta">Label</string>
+    <string name="tipo">TYPE</string>
+    <string name="_1">1</string>
+    <string name="_11_00">11:00</string>
+    <string name="nombre_espectaculo">Show name</string>
+    <string name="_45_min_accesible_s">45 min · Accessible: Yes</string>
+    <string name="titulo">Title</string>
+    <string name="nombre_espect_culo">Show name</string>
+    <string name="_45_min_11_00_13_30_17_00">45 min · 11:00 | 13:30 | 17:00</string>
+    <string name="accesible">♿ Accessible</string>
+    <string name="usuario">user</string>
+    <string name="crear_ruta">Create route</string>
+    <string name="no_tienes_rutas_guardadas">You have no saved routes.</string>
+    <string name="ruta">Route</string>
+    <string name="ver_en_mapa">View on map</string>
+    <string name="favorito">Favourite</string>
+    <string name="borrar">Delete</string>
+    <string name="esta_ruta_no_tiene_paradas">This route has no stops.</string>
+    <string name="mis_reservas">My bookings</string>
+    <string name="nombre_del_restaurante">Restaurant name</string>
+    <string name="tipo3">Type: ...</string>
+    <string name="precio2">Price: €€</string>
+    <string name="a_adir_a_favoritos">☆ Add to favourites</string>
+    <string name="ir_hasta_all">Go there</string>
+    <string name="reservar">Book</string>
+    <string name="no_tienes_reservas_todav_a">You don’t have any bookings yet.</string>
+    <string name="seguir">Follow</string>
+    <string name="rutas">Routes</string>
+    <string name="guardar">Save</string>
+    <string name="cancelar">Cancel</string>
+    <string name="horarios_de_hoy">Today’s schedules</string>
+    <string name="espect_culos">Shows</string>
+    <string name="no_tienes_favoritos_de_espect_culos">You have no favourite shows.</string>
+    <string name="restaur_ntes">Restaurants</string>
+    <string name="no_tienes_favoritos_de_restaurantes">You have no favourite restaurants.</string>
+    <string name="rutass">Routes</string>
+    <string name="no_tienes_favoritos_de_rutas">You have no favourite routes.</string>
+    <string name="horarios">Schedules</string>
+    <string name="nombre_del_espect_culo">Show name</string>
+    <string name="duraci_n_45_min">Duration: 45 min</string>
+    <string name="horarios_11_00_13_30_17_00">Schedules: 11:00 | 13:30 | 17:00</string>
+    <string name="accesible_s">Accessible: Yes</string>
+    <string name="a_adir_a_favoritos2">☆ Add to favourites</string>
+    <string name="ir_hasta_all2">Go there</string>
+    <string name="notificar_al_inicio">Notify at start</string>
+    <string name="notificar_15_min_antes">Notify 15 min before</string>
+    <string name="fecha_y_hora">Date and time</string>
+    <string name="sin_seleccionar">(not selected)</string>
+    <string name="elegir_fecha">Choose date</string>
+    <string name="elegir_hora">Choose time</string>
+    <string name="n_mero_de_personas">Number of people</string>
+    <string name="ej_2">e.g. 2</string>
+    <string name="nombre">Name</string>
+    <string name="tipo4">Type</string>
+    <string name="extra">Extra</string>
+    <string name="ir_hasta_aqu">Go here</string>
+    <string name="ver_detalle">View details</string>
+    <string name="usuario2">User</string>
+    <string name="contrase_a">Password</string>
+    <string name="acceder">Log in</string>
+    <string name="crear_cuenta">Create account</string>
+
+    <!-- Toasts -->
+    <string name="toast_location_unavailable">Location unavailable</string>
+    <string name="toast_invalid_data">Invalid data</string>
+    <string name="toast_invalid_session">Invalid session</string>
+    <string name="toast_invalid_restaurant_id">Invalid restaurant ID</string>
+    <string name="toast_cannot_delete_admin">The administrator cannot be deleted</string>
+    <string name="toast_user_deleted">User deleted</string>
+    <string name="toast_user_delete_error">Could not delete the user</string>
+    <string name="toast_session_closed">Session closed</string>
+    <string name="toast_creation_cancelled">Creation cancelled</string>
+    <string name="toast_no_schedules">No schedules to show</string>
+    <string name="toast_no_session">No session</string>
+    <string name="toast_account_created">Account created</string>
+    <string name="toast_restaurant_not_found">Restaurant not found</string>
+    <string name="toast_add_at_least_one_stop">Add at least one stop</string>
+    <string name="toast_show_not_found">Show not found</string>
+    <string name="toast_favorite_update_error">Error updating favourite</string>
+    <string name="toast_cannot_modify_reservation">You cannot modify this booking</string>
+    <string name="toast_invalid_people_number">Invalid number of people</string>
+    <string name="toast_select_date_time">Select date and time</string>
+    <string name="toast_date_time_cannot_be_past">Date and time cannot be in the past</string>
+    <string name="toast_route_deleted">Route deleted</string>
+    <string name="toast_route_delete_error">Error deleting route</string>
+    <string name="toast_no_active_session">No active session</string>
+    <string name="toast_route_saved">Route saved</string>
+    <string name="toast_route_save_error">Error saving route</string>
+
+    <string name="toast_exit_creation_mode_for_quick_route">
+        Exit creation mode to use quick route
+    </string>
+    <string name="toast_location_required_for_route">
+        Location is required to calculate the route
+    </string>
+    <string name="toast_location_required_to_view_route">
+        Location is required to view the route
+    </string>
+    <string name="toast_route_has_no_stops">This route has no stops</string>
+    <string name="toast_location_fetch_error">Could not get your location</string>
+    <string name="toast_route_display_error">Error displaying the route</string>
+    <string name="toast_route_calculation_error">Error calculating the route</string>
+    <string name="toast_cannot_follow_route_in_creation_mode">
+        Cannot follow the route in creation mode
+    </string>
+    <string name="toast_calculate_route_first">Calculate a route first</string>
+    <string name="toast_location_required_for_tracking">Location is required for tracking</string>
+    <string name="toast_tracking_enabled">Tracking enabled</string>
+    <string name="toast_tracking_disabled">Tracking disabled</string>
+
+    <!-- Arrays -->
+    <string-array name="settings_language_labels">
+        <item>Spanish</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="settings_theme_labels">
+        <item>System default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+</resources>
