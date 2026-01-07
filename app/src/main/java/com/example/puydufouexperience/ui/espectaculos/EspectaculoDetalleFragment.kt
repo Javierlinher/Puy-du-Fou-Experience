@@ -10,13 +10,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.puydufouexperience.R
 import com.example.puydufouexperience.data.db.DatabaseProvider
 import com.example.puydufouexperience.data.repository.FavoritosRepository
 import com.example.puydufouexperience.databinding.FragmentEspectaculoDetalleBinding
 import com.example.puydufouexperience.model.entity.Espectaculo
+import com.example.puydufouexperience.ui.mapa.MapaFragment
 import com.example.puydufouexperience.utils.RecordatorioScheduler
 import com.example.puydufouexperience.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
@@ -25,55 +28,39 @@ import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 /**
- * Fragment de detalle de un espectáculo.
- *
- * Funcionalidad:
- * - Mostrar información completa del espectáculo
- * - Marcar / desmarcar como favorito
- * - Programar recordatorios (inicio / 15 min antes)
- *
- * NOTA DE DISEÑO:
- * - Los recordatorios NO se guardan en Room (decisión de diseño del proyecto)
- * - Se usan AlarmManager + BroadcastReceiver
- *
- * Android 13+:
- * - Hay que pedir permiso POST_NOTIFICATIONS en runtime.
- * - Lo pedimos JUSTO cuando el usuario pulsa "Notificar..." (UX correcta).
+ * Detalle de espectáculo:
+ * - Carga datos del espectáculo
+ * - Favoritos
+ * - Recordatorios
+ * - ✅ Ruta rápida "Ir hasta allí" (igual que Restaurantes)
  */
 class EspectaculoDetalleFragment : Fragment() {
 
     private var _binding: FragmentEspectaculoDetalleBinding? = null
     private val binding get() = _binding!!
 
-    // ID del espectáculo recibido por argumentos
     private var espectaculoId: Int = -1
-
-    // Usuario logueado actualmente
     private var idUsuarioActual: Int = -1
 
-    // Repositorio de favoritos (tabla polimórfica)
     private lateinit var favoritosRepository: FavoritosRepository
-
-    // Estado del favorito en UI
     private var favoritoActivo = false
 
-    // Guardamos el espectáculo cargado para reutilizar datos
     private var espectaculoActual: Espectaculo? = null
 
-    // Guardamos la intención de recordatorio mientras pedimos permiso (inicio o 15 min)
+    // ✅ Guardamos destino para “Ir hasta allí” (igual que en restaurante)
+    private var destinoLat: Double? = null
+    private var destinoLng: Double? = null
+    private var destinoNombre: String = ""
+
     private var pendienteEsInicio: Boolean? = null
 
-    // Launcher para pedir permiso de notificaciones (Android 13+)
     private val requestNotificationsPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             val esInicio = pendienteEsInicio
             pendienteEsInicio = null
 
             if (granted) {
-                // Si conceden permiso, continuamos con lo que el usuario quería hacer
-                if (esInicio != null) {
-                    programarRecordatorioInterno(esInicio)
-                }
+                if (esInicio != null) programarRecordatorioInterno(esInicio)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -85,8 +72,6 @@ class EspectaculoDetalleFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Recuperamos el ID del espectáculo desde el NavController
         espectaculoId = requireArguments().getInt(ARG_ESPECTACULO_ID, -1)
     }
 
@@ -102,48 +87,61 @@ class EspectaculoDetalleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Comprobamos sesión
         idUsuarioActual = SessionManager.getIdUsuarioActual(requireContext())
         if (idUsuarioActual == -1 || espectaculoId == -1) {
-
             Toast.makeText(
                 requireContext(),
                 getString(R.string.toast_invalid_data),
                 Toast.LENGTH_SHORT
             ).show()
-
             return
         }
 
         val db = DatabaseProvider.get(requireContext().applicationContext)
         favoritosRepository = FavoritosRepository(db.favoritoDao())
 
-        // Carga inicial del detalle y estado de favorito
+        // Carga detalle + favorito + prepara destinoLat/Lng
         cargarDetalleYFavorito()
 
-        // Botón favorito
-        binding.btnFavorito.setOnClickListener {
-            toggleFavorito()
-        }
+        // Favorito
+        binding.btnFavorito.setOnClickListener { toggleFavorito() }
 
-        // Botón: notificar al inicio del espectáculo
+        // Recordatorios
         binding.btnNotificarInicio.setOnClickListener {
-            // Pedimos permiso si hace falta, y luego programamos
             solicitarPermisoNotificacionesYProgramar(esInicio = true)
         }
 
-        // Botón: notificar 15 minutos antes
         binding.btnNotificar15.setOnClickListener {
             solicitarPermisoNotificacionesYProgramar(esInicio = false)
         }
+
+        // ✅ Ir hasta allí -> navega al mapa con ruta rápida
+        // (Necesitas que exista binding.btnIrMapa en el XML)
+        binding.btnIrMapa.setOnClickListener {
+            val lat = destinoLat
+            val lng = destinoLng
+
+            if (lat == null || lng == null) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.toast_location_unavailable),
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            val args = bundleOf(
+                MapaFragment.ARG_DEST_LAT to lat,
+                MapaFragment.ARG_DEST_LNG to lng,
+                MapaFragment.ARG_DEST_NAME to destinoNombre
+            )
+
+            // Igual que en restaurante: navegamos directo al mapaFragment
+            findNavController().navigate(R.id.mapaFragment, args)
+        }
     }
 
-    /**
-     * Si Android 13+ y no tenemos permiso, lo pedimos.
-     * Si ya tenemos permiso (o Android < 13), programamos directamente.
-     */
     private fun solicitarPermisoNotificacionesYProgramar(esInicio: Boolean) {
-        // Android < 13: no existe permiso runtime -> programamos directo
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             programarRecordatorioInterno(esInicio)
             return
@@ -157,32 +155,30 @@ class EspectaculoDetalleFragment : Fragment() {
         if (granted) {
             programarRecordatorioInterno(esInicio)
         } else {
-            // Guardamos lo que el usuario quería hacer, y pedimos permiso
             pendienteEsInicio = esInicio
             requestNotificationsPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 
     /**
-     * Carga:
-     * - Datos del espectáculo desde Room
-     * - Estado de favorito para el usuario actual
+     * Carga datos del espectáculo y estado de favorito.
+     * ✅ Además, guarda lat/lng/nombre para la ruta rápida.
      */
     private fun cargarDetalleYFavorito() {
         viewLifecycleOwner.lifecycleScope.launch {
-            val result = withContext(Dispatchers.IO) {
+            val (esp, esFav) = withContext(Dispatchers.IO) {
                 val db = DatabaseProvider.get(requireContext().applicationContext)
-                val esp = db.espectaculoDao().getById(espectaculoId)
-                val esFav = favoritosRepository.isFavorito(
+                val e = db.espectaculoDao().getById(espectaculoId)
+                val fav = favoritosRepository.isFavorito(
                     idUsuarioActual,
                     TIPO_ESPECTACULO,
                     espectaculoId
                 )
-                Pair(esp, esFav)
+                Pair(e, fav)
             }
 
-            espectaculoActual = result.first
-            favoritoActivo = result.second
+            espectaculoActual = esp
+            favoritoActivo = esFav
 
             val espectaculo = espectaculoActual ?: run {
                 Toast.makeText(
@@ -190,36 +186,30 @@ class EspectaculoDetalleFragment : Fragment() {
                     getString(R.string.toast_show_not_found),
                     Toast.LENGTH_SHORT
                 ).show()
-
                 return@launch
             }
 
-            // Título en la toolbar
+            // ✅ Guardamos destino para “Ir hasta allí”
+            destinoLat = espectaculo.latitud
+            destinoLng = espectaculo.longitud
+            destinoNombre = espectaculo.nombre
+
             requireActivity().title = espectaculo.nombre
 
-            // Pintado de datos
             binding.tvNombre.text = espectaculo.nombre
             binding.tvDuracion.text = "Duración: ${espectaculo.duracionMinutos} min"
             binding.tvHorarios.text = "Horarios: ${espectaculo.horarios.replace("|", " | ")}"
-            binding.tvAccesible.text =
-                "Accesible: " + if (espectaculo.accesible) "Sí" else "No"
+            binding.tvAccesible.text = "Accesible: " + if (espectaculo.accesible) "Sí" else "No"
 
             pintarEstadoFavorito()
         }
     }
 
-    /**
-     * Programa un recordatorio usando AlarmManager.
-     * (Aquí ya damos por hecho que, si hacía falta, tenemos permiso de notificaciones.)
-     *
-     * @param esInicio true = al inicio, false = 15 minutos antes
-     */
     private fun programarRecordatorioInterno(esInicio: Boolean) {
         val espectaculo = espectaculoActual ?: return
 
         viewLifecycleOwner.lifecycleScope.launch {
 
-            // ✅ Respeta el switch "Notificaciones activadas" (AjustesUsuario.notificaciones)
             val notificacionesPermitidas = withContext(Dispatchers.IO) {
                 val db = DatabaseProvider.get(requireContext().applicationContext)
                 db.ajustesUsuarioDao()
@@ -236,7 +226,6 @@ class EspectaculoDetalleFragment : Fragment() {
                 return@launch
             }
 
-            // Calculamos la próxima sesión futura del espectáculo
             val fechaSesion = calcularProximaSesion(espectaculo.horarios)
             if (fechaSesion == null) {
                 Toast.makeText(
@@ -247,41 +236,25 @@ class EspectaculoDetalleFragment : Fragment() {
                 return@launch
             }
 
-            // Momento exacto del disparo
-            val triggerAtMillis =
-                if (esInicio) fechaSesion else fechaSesion - 15 * 60 * 1000
+            val triggerAtMillis = if (esInicio) fechaSesion else fechaSesion - 15 * 60 * 1000
 
-            // Programamos el recordatorio
             RecordatorioScheduler.programar(
                 context = requireContext(),
                 espectaculoId = espectaculoId,
-                tipo = if (esInicio)
-                    RecordatorioScheduler.TIPO_INICIO
-                else
-                    RecordatorioScheduler.TIPO_15_MIN,
+                tipo = if (esInicio) RecordatorioScheduler.TIPO_INICIO else RecordatorioScheduler.TIPO_15_MIN,
                 triggerAtMillis = triggerAtMillis,
                 titulo = espectaculo.nombre,
-                texto = if (esInicio)
-                    "El espectáculo comienza ahora"
-                else
-                    "El espectáculo empieza en 15 minutos"
+                texto = if (esInicio) "El espectáculo comienza ahora" else "El espectáculo empieza en 15 minutos"
             )
 
             Toast.makeText(
                 requireContext(),
-                if (esInicio)
-                    "Aviso al inicio programado"
-                else
-                    "Aviso 15 min antes programado",
+                if (esInicio) "Aviso al inicio programado" else "Aviso 15 min antes programado",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    /**
-     * A partir del string de horarios ("11:00|13:30|17:00")
-     * devuelve el timestamp de la próxima sesión futura hoy.
-     */
     private fun calcularProximaSesion(horarios: String): Long? {
         val ahora = System.currentTimeMillis()
         val hoy = Calendar.getInstance()
@@ -305,25 +278,14 @@ class EspectaculoDetalleFragment : Fragment() {
             .minOrNull()
     }
 
-    /**
-     * Añade o elimina el espectáculo de favoritos.
-     */
     private fun toggleFavorito() {
         viewLifecycleOwner.lifecycleScope.launch {
             val nuevoEstado = withContext(Dispatchers.IO) {
                 if (favoritoActivo) {
-                    favoritosRepository.remove(
-                        idUsuarioActual,
-                        TIPO_ESPECTACULO,
-                        espectaculoId
-                    )
+                    favoritosRepository.remove(idUsuarioActual, TIPO_ESPECTACULO, espectaculoId)
                     false
                 } else {
-                    favoritosRepository.add(
-                        idUsuarioActual,
-                        TIPO_ESPECTACULO,
-                        espectaculoId
-                    )
+                    favoritosRepository.add(idUsuarioActual, TIPO_ESPECTACULO, espectaculoId)
                     true
                 }
             }
@@ -333,22 +295,15 @@ class EspectaculoDetalleFragment : Fragment() {
 
             Toast.makeText(
                 requireContext(),
-                if (favoritoActivo)
-                    "Añadido a favoritos"
-                else
-                    "Eliminado de favoritos",
+                if (favoritoActivo) "Añadido a favoritos" else "Eliminado de favoritos",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    /**
-     * Actualiza el texto del botón de favorito.
-     */
     private fun pintarEstadoFavorito() {
         binding.btnFavorito.text =
-            if (favoritoActivo) "★ En favoritos"
-            else "☆ Añadir a favoritos"
+            if (favoritoActivo) "★ En favoritos" else "☆ Añadir a favoritos"
     }
 
     override fun onDestroyView() {
